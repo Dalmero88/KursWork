@@ -1,0 +1,368 @@
+# ===============================================================================
+# ОС и файловые системы
+# ===============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.nfs*
+
+# ===============================================================================
+# Редакторы и IDE
+# ===============================================================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+gen/
+
+# Eclipse
+.eclipse/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~
+.project
+.classpath
+.settings/
+.loadpath
+.factorypath
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Emacs
+*~
+\#*\#
+.dir-locals.el
+.emacs.desktop
+.emacs.desktop.lock
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Kate
+*.kate-swp
+
+# gedit
+.goutputstream*
+
+# Bluefish
+.bluefish
+
+# ===============================================================================
+# Языки программирования и сборки
+# ===============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.spyderproject
+.spyproject
+.ropeproject
+.mypy_cache/
+.pyre/
+.pytest_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+package-lock.json
+yarn.lock
+.yarn-integrity
+.pnp.*
+.yarn/cache
+.yarn/*
+.yarn/install-state.gz
+
+# Ruby
+*.gem
+*.rbc
+/.config
+coverage/
+InstalledFiles
+pkg/
+spec/reports/
+test/tmp/
+test/version_tmp/
+tmp/
+.bundle/
+lib/bundler/man/
+vendor/ruby/
+.ruby-version
+.ruby-gemset
+.rvmrc
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# C/C++
+*.o
+*.ko
+*.obj
+*.elf
+*.ilk
+*.pdb
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# .NET Core
+*.csproj.user
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# Go
+*.exe
+*.test
+*.prof
+
+# Rust
+target/
+**/*.rs.bk
+
+# Haskell
+*.o
+*.hi
+.stack-work/
+
+# Scala
+.bsp/
+.metals/
+metals.sbt
+
+# Erlang
+.eunit
+rel/
+.rebar
+.rebar3
+_build/
+
+# Elixir
+_build/
+mix.lock
+erl_crash.dump
+
+# PHP
+composer.phar
+vendor/
+phpunit.xml
+.phpunit.result.cache
+
+# Perl
+blib/
+_build/
+Build
+Build.bat
+.prove
+
+# Lua
+*.luac
+
+# Dart
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+
+# Swift/Xcode
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.xctestrun
+
+# Objective-C
+build/
+*.gcno
+
+# ===============================================================================
+# Веб-разработка
+# ===============================================================================
+
+# Bower
+bower_components/
+
+# Grunt
+.grunt/
+
+# Gulp
+.gulp*
+
+# Webpack
+.webpack/
+
+# Jekyll
+.jekyll-cache/
+_site/
+
+# Nuxt.js
+.nuxt/
+.output/
+
+# Next.js
+.next/
+out/
+
+# Vue.js
+vue.config.js
+
+# React
+build/
+coverage/
+.nyc_output/
+.cache/
+
+# Angular
+dist/
+tmp/
+out-tsc/
+aot/
+
+# ===============================================================================
+# Базы данных
+# ===============================================================================
+
+*.sql
+*.sqlite
+*.db
+*.db-journal
+*.mdb
+*.accdb
+
+# ===============================================================================
+# Логи, кэш, временные файлы
+# ===============================================================================
+
+*.log
+logs/
+*.tmp
+tmp/
+cache/
+temp/
+.cache/
+.temp/
+
+# ===============================================================================
+# Конфиденциальные данные
+# ===============================================================================
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*
+*.env
+*.key
+*.pem
+id_rsa
+id_dsa
+known_hosts
