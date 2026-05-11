@@ -366,3 +366,5 @@ temp/
 id_rsa
 id_dsa
 known_hosts
+
+catboost_info/
