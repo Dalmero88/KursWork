@@ -62,7 +62,7 @@ KursWork/
 | 6 | Классификация | SI > медианы выборки |
 | 7 | Классификация | SI > 8 (фармакологический порог) |
 
-## 2. Анализ данных (EDA)
+## 2. [Анализ данных (EDA)](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/01_EDA.py)
 
 ### 2.1 Общее описание датасета
 
@@ -101,6 +101,8 @@ KursWork/
 
 Все три распределения **значительно правоскошены** (тест Шапиро-Уилка, p ≈ 0 для всех). Применение `log1p`-преобразования обязательно для регрессионных задач.
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/eda_target_distributions.png)
+
 ### 2.4 Корреляционный анализ
 
 **Топ признаков по |корреляции Пирсона| с целевыми:**
@@ -112,6 +114,10 @@ KursWork/
 | 3 | PEOE_VSA7 | 0.256 | MolWt | 0.306 | RingCount | 0.124 |
 | 4 | fr_Ar_NH | 0.246 | HeavyAtomCount | 0.305 | fr_Al_COO | 0.102 |
 | 5 | Chi4v | 0.244 | Chi0 | 0.305 | fr_COO | 0.101 |
+
+![](results/eda_feature_corr.png)
+
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/eda_target_corr.png)
 
 **Выводы:**
 - CC50 умеренно коррелирует с размерными дескрипторами (молекулярный вес, площадь поверхности) — крупные молекулы труднее проникают в клетку, повышая CC50
@@ -128,6 +134,9 @@ KursWork/
 | SI > 8 | 8.0 | 644 (64%) | 357 (36%) | Умеренный |
 
 Задача SI > 8 потребовала специальной обработки дисбаланса: `class_weight='balanced'` для sklearn-моделей и `scale_pos_weight` для XGBoost.
+
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/eda_class_balance.png)
+
 
 ## 3. Регрессионные модели
 
@@ -151,7 +160,7 @@ KursWork/
 
 Метрика GridSearchCV: `R²`. Итоговая оценка на тестовой выборке: R², MAE, RMSE (в исходных единицах после обратного преобразования `expm1`).
 
-### 3.2 Задача 1: Регрессия IC50
+### 3.2 [Задача 1: Регрессия IC50](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/02_regression_IC50.py)
 
 | Модель | R² | MAE (mM) | RMSE (mM) |
 |---|---|---|---|
@@ -163,15 +172,19 @@ KursWork/
 
 **Лучшая модель: RandomForest** (max_depth=10, min_samples_leaf=3, n_estimators=100)
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_ic50_importance.png)
+
 **Анализ результатов:**
 - Ансамблевые методы превосходят линейные на ~13 п.п. по R²
 - Умеренный R²=0.458 объясняется высокой вариабельностью IC50 (CV≈180%) и наличием сильных выбросов
 - Ridge даёт наименьший MAE при низком R² — признак переусреднения предсказаний
 - LightGBM уступает RF по R², но показывает наименьший RMSE среди ансамблей — устойчивее к экстремальным значениям
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_ic50_pred.png)
+
 **Рекомендация:** Основная часть необъяснённой дисперсии, вероятно, связана с отсутствием в датасете структурных отпечатков (Morgan ECFP4/6).
 
-### 3.3 Задача 2: Регрессия CC50
+### 3.3 [Задача 2: Регрессия CC50](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/03_regression_CC50.py)
 
 | Модель | R² | MAE (mM) | RMSE (mM) |
 |---|---|---|---|
@@ -183,13 +196,17 @@ KursWork/
 
 **Лучшая модель: RandomForest**
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_cc50_importance.png)
+
 **Анализ результатов:**
 - Качество немного ниже, чем для IC50, несмотря на то что CC50 лучше коррелирует с линейными признаками
 - XGBoost показывает наименьший MAE при более низком R² — характерно для boosting-алгоритмов: точнее для типичных наблюдений, хуже на выбросах
 - Линейные модели приемлемы (R²=0.36), так как размерные дескрипторы имеют умеренную корреляцию с CC50
 - Разрыв между LinearRegression и RF (~7.5 п.п.) меньше, чем для IC50, — CC50 более «линейна» по природе
 
-### 3.4 Задача 3: Регрессия SI
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_cc50_pred.png)
+
+### 3.4 [Задача 3: Регрессия SI](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/04_regression_SI.py)
 
 | Модель | R² | MAE (mM) | RMSE |
 |---|---|---|---|
@@ -201,11 +218,16 @@ KursWork/
 
 **Лучшая модель: RandomForest**
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_si_importance.png)
+
 **Анализ результатов:**
 - SI — наиболее сложная задача: skewness=18, kurtosis=360, max=15620 при median=3.85
 - RMSE ~1415 практически бессмысленна как метрика из-за экстремальных выбросов
 - Низкий R² линейных моделей (~0.11) подтверждает: SI нелинейно определяется признаками
 - Все tree-based модели дают схожий MAE (~178), что указывает на общий «потолок» при данных признаках
+
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/reg_si_pred.png)
+
 
 > **Вывод:** Прямое предсказание SI неэффективно. **Рекомендуется двухэтапная стратегия**: предсказать IC50 и CC50 независимо → вычислить SI = CC50_pred / IC50_pred. Это устраняет накопление ошибок и использует более высокое качество отдельных регрессий.
 
@@ -228,7 +250,7 @@ GridSearchCV: 3-fold CV, метрика оптимизации — `roc_auc`.
 
 **Метрики оценки:** AUC-ROC (основная), Accuracy, F1-score.
 
-### 4.2 Задача 4: IC50 > медианы
+### 4.2 [Задача 4: IC50 > медианы](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/05_classification_IC50_median.py)
 
 | Модель | Accuracy | F1 | AUC-ROC |
 |---|---|---|---|
@@ -239,12 +261,14 @@ GridSearchCV: 3-fold CV, метрика оптимизации — `roc_auc`.
 
 **Лучшая модель: RandomForest (AUC=0.791)**
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/cls_ic50_roc.png)
+
 **Анализ:**
 - Хорошее качество классификации для сбалансированного датасета
 - LogReg с AUC=0.463 — хуже случайного (!), что подтверждает нелинейную природу зависимости
 - Разрыв RF vs XGB невелик (0.791 vs 0.775) — оба метода достигают сопоставимого качества
 
-### 4.3 Задача 5: CC50 > медианы
+### 4.3 [Задача 5: CC50 > медианы](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/06_classification_CC50_median.py)
 
 | Модель | Accuracy | F1 | AUC-ROC |
 |---|---|---|---|
@@ -255,13 +279,15 @@ GridSearchCV: 3-fold CV, метрика оптимизации — `roc_auc`.
 
 **Лучшая модель: LightGBM (AUC=0.852)** — наивысший AUC среди всех задач проекта
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/cls_cc50_roc.png)
+
 **Анализ:**
 - Наилучший результат среди всех 7 задач
 - CC50 хорошо разделяется по размерным дескрипторам — LightGBM эффективно строит пороговые разделения
 - F1=0 для LogReg означает предсказание только одного класса — полную неспособность линейного разделения
 - AUC 0.85 указывает на практическую пригодность модели для реального отбора соединений
 
-### 4.4 Задача 6: SI > медианы
+### 4.4 [Задача 6: SI > медианы](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/07_classification_SI_median.py)
 
 | Модель | Accuracy | F1 | AUC-ROC |
 |---|---|---|---|
@@ -272,13 +298,15 @@ GridSearchCV: 3-fold CV, метрика оптимизации — `roc_auc`.
 
 **Лучшая модель: RandomForest (AUC=0.686)**
 
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/cls_si_median_roc.png)
+
 **Анализ:**
 - Умеренное качество, отражающее сложность SI как целевой переменной
 - Все tree-based модели дают сопоставимые результаты (AUC 0.667–0.686)
 - AUC существенно выше 0.5 — информация о SI в признаках присутствует, но ограничена
 - F1 < Accuracy указывает на некоторый дисбаланс ошибок по классам
 
-### 4.5 Задача 7: SI > 8 (фармакологический порог)
+### 4.5 [Задача 7: SI > 8 (фармакологический порог)](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/08_classification_SI_gt8.py)
 
 | Модель | Accuracy | F1 | AUC-ROC |
 |---|---|---|---|
@@ -288,6 +316,8 @@ GridSearchCV: 3-fold CV, метрика оптимизации — `roc_auc`.
 | LogisticRegression (balanced) | 0.642 | 0.000 | 0.635 |
 
 **Лучшая модель: RandomForest (AUC=0.757)**
+
+![](https://github.com/Dalmero88/KursWork/blob/52d1e721921542fe52bed2c89cfd416b79ae1bcc/results/cls_si8_roc_cm.png)
 
 **Анализ:**
 - Практически важнейшая задача — отбор соединений с терапевтическим потенциалом
